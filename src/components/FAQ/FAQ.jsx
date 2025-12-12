@@ -1,12 +1,15 @@
 import FAQItem from "./FaqItem";
+import EmptyState from "../../ui/EmptyState.jsx";
 import faqData from "../../data/faq-data.js";
+import { filterValidItems, validators } from "../../utils/dataUtils";
 
 function FAQ() {
-  const hasFaqData = faqData && Array.isArray(faqData) && faqData.length > 0;
+  const validFaqItems = filterValidItems(faqData, validators.faqItem);
+  const hasItems = validFaqItems.length > 0;
 
   return (
     <section className="w-full bg-(--secondary-1000) py-16">
-      <div className="max-w-[1296px] mx-auto ">
+      <div className="max-w-[1296px] mx-auto">
         <h2
           className="
             mb-10
@@ -21,29 +24,21 @@ function FAQ() {
           Frequently Asked Questions
         </h2>
 
-        {hasFaqData ? (
+        {hasItems ? (
           <div>
-            {faqData.map((item, index) => {
-              if (!item || !item.question || !item.answer) {
-                console.warn(`Invalid FAQ item at index ${index}:`, item);
-                return null;
-              }
-
-              return (
-                <FAQItem
-                  key={item.question || index}
-                  question={item.question}
-                  answer={item.answer}
-                />
-              );
-            })}
+            {validFaqItems.map((item, index) => (
+              <FAQItem
+                key={item.question || index}
+                question={item.question}
+                answer={item.answer}
+              />
+            ))}
           </div>
         ) : (
-          <div className="py-12 text-center text-(--white-1000)">
-            <p className="text-[18px]">
-              FAQ information is currently unavailable.
-            </p>
-          </div>
+          <EmptyState
+            message="FAQ information is currently unavailable"
+            className="text-(--white-1000)"
+          />
         )}
       </div>
     </section>

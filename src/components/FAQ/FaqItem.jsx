@@ -1,13 +1,21 @@
 import { useState } from "react";
+import IconFallback from "../../ui/IconFallback";
 import AcardionIcon from "../../assets/icons/accordion-icon.svg";
 
 function FAQItem({ question, answer }) {
   const [open, setOpen] = useState(false);
 
-  if (!question || !answer) {
-    console.error("FAQItem: question and answer are required");
+  const isValid = question && answer;
+  const displayQuestion = question || "";
+  const displayAnswer = answer || "";
+
+  if (!isValid) {
     return null;
   }
+
+  const questionId = `faq-answer-${displayQuestion
+    .slice(0, 20)
+    .replace(/\s/g, "-")}`;
 
   return (
     <div className="border-b border-(--white-250)">
@@ -15,29 +23,22 @@ function FAQItem({ question, answer }) {
         onClick={() => setOpen(!open)}
         className="w-full py-5 flex items-center justify-between text-left"
         aria-expanded={open}
-        aria-controls={`faq-answer-${question.slice(0, 20)}`}
+        aria-controls={questionId}
       >
         <span className="text-[16px] font-medium text-(--white-1000)">
-          {question}
+          {displayQuestion}
         </span>
 
-        <img
+        <IconFallback
           src={AcardionIcon}
           alt={open ? "Collapse" : "Expand"}
           className={`w-5 h-5 transition-transform ${open ? "rotate-180" : ""}`}
-          onError={(e) => {
-            console.error("Failed to load accordion icon");
-            e.target.style.display = "none";
-          }}
         />
       </button>
 
       {open && (
-        <p
-          id={`faq-answer-${question.slice(0, 20)}`}
-          className="pb-5 text-[16px] text-[#b6b6b6]"
-        >
-          {answer}
+        <p id={questionId} className="pb-5 text-[16px] text-[#b6b6b6]">
+          {displayAnswer}
         </p>
       )}
     </div>

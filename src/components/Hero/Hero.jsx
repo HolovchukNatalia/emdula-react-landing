@@ -1,10 +1,12 @@
 import BenefitItem from "./BenefitItem";
 import Button from "../../ui/Button/Button";
+import EmptyState from "../../ui/EmptyState.jsx";
 import { benefits } from "../../data/benefits";
+import { filterValidItems, validators } from "../../utils/dataUtils";
 
 function Hero() {
-  const hasBenefits =
-    benefits && Array.isArray(benefits) && benefits.length > 0;
+  const validBenefits = filterValidItems(benefits, validators.benefit);
+  const hasBenefits = validBenefits.length > 0;
 
   return (
     <section
@@ -43,28 +45,19 @@ function Hero() {
 
           {hasBenefits ? (
             <div className="grid grid-cols-4 px-[68px]">
-              {benefits.map((benefit, index) => {
-                if (!benefit || !benefit.title || !benefit.icon) {
-                  console.warn(
-                    `Invalid benefit data at index ${index}:`,
-                    benefit
-                  );
-                  return null;
-                }
-
-                return (
-                  <BenefitItem
-                    key={benefit.title || index}
-                    title={benefit.title}
-                    icon={benefit.icon}
-                  />
-                );
-              })}
+              {validBenefits.map((benefit, index) => (
+                <BenefitItem
+                  key={benefit.title || index}
+                  title={benefit.title}
+                  icon={benefit.icon}
+                />
+              ))}
             </div>
           ) : (
-            <div className="px-[68px] py-8 text-center text-(--white-1000)">
-              <p>Benefits information is currently unavailable.</p>
-            </div>
+            <EmptyState
+              message="Benefits information is currently unavailable"
+              className="text-(--white-1000)"
+            />
           )}
         </div>
       </div>

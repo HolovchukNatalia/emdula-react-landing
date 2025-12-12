@@ -4,7 +4,7 @@ function Partners() {
   return (
     <section id="teams" className="w-full bg-[#F3F0F0] py-16 overflow-hidden">
       <div className="max-w-[1476px] mx-auto px-6 md:px-[88px]">
-        <h3 className="mb-8 text-center text-[24px] leading-[1.42] font-normal text-[var(--secondary-1000)]">
+        <h3 className="mb-8 text-center text-[24px] leading-[1.42] font-normal text-(--secondary-1000)">
           Built together with our partners
         </h3>
 

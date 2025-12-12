@@ -1,13 +1,13 @@
+import { isValidString, isValidArray } from "../../utils/dataUtils";
+
 function FooterColumn({ title, links = [] }) {
-  if (!title) {
-    console.error("FooterColumn: title is required");
+  const isValid = isValidString(title);
+  const validLinks = prepareLinks(links);
+  const hasLinks = validLinks.length > 0;
+
+  if (!isValid) {
     return null;
   }
-
-  const validLinks =
-    links && Array.isArray(links)
-      ? links.filter((link) => link && typeof link === "string")
-      : [];
 
   return (
     <div>
@@ -15,7 +15,7 @@ function FooterColumn({ title, links = [] }) {
         {title}
       </h4>
 
-      {validLinks.length > 0 ? (
+      {hasLinks ? (
         <ul className="flex flex-col gap-4">
           {validLinks.map((item, index) => (
             <li
@@ -33,6 +33,14 @@ function FooterColumn({ title, links = [] }) {
       )}
     </div>
   );
+}
+
+function prepareLinks(links) {
+  if (!isValidArray(links)) {
+    return [];
+  }
+
+  return links.filter((link) => isValidString(link));
 }
 
 export default FooterColumn;

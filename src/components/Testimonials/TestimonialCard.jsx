@@ -1,8 +1,10 @@
+import IconFallback from "../../ui/IconFallback";
 import UserIcon from "../../assets/icons/user.svg";
 
 function TestimonialCard({ text, name, role }) {
-  if (!text || !name || !role) {
-    console.error("TestimonialCard: text, name and role are required");
+  const isValid = text && name && role;
+
+  if (!isValid) {
     return null;
   }
 
@@ -13,15 +15,11 @@ function TestimonialCard({ text, name, role }) {
       </p>
 
       <div className="flex items-center gap-3">
-        <div className=" rounded-full flex items-center justify-center">
-          <img
+        <div className="rounded-full flex items-center justify-center">
+          <IconFallback
             src={UserIcon}
             alt={`${name} avatar`}
             className="w-[79px] h-[79px]"
-            onError={(e) => {
-              console.error(`Failed to load user icon for: ${name}`);
-              e.target.style.display = "none";
-            }}
           />
         </div>
 

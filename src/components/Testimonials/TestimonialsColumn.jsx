@@ -1,22 +1,26 @@
 import { useState } from "react";
 import TestimonialCard from "./TestimonialCard";
+import EmptyState from "../../ui/EmptyState.jsx";
+import { filterValidItems, validators } from "../../utils/dataUtils";
 
 function TestimonialsColumn({ testimonials = [], direction = "up" }) {
   const [isPaused, setIsPaused] = useState(false);
 
-  const validTestimonials =
-    testimonials && Array.isArray(testimonials)
-      ? testimonials.filter(
-          (item) => item && item.text && item.name && item.role
-        )
-      : [];
+  const validTestimonials = filterValidItems(
+    testimonials,
+    validators.testimonial
+  );
+  const hasTestimonials = validTestimonials.length > 0;
+  const animationClass =
+    direction === "up" ? "animate-scroll-up" : "animate-scroll-down";
 
-  if (validTestimonials.length === 0) {
+  if (!hasTestimonials) {
     return (
       <div className="relative max-h-[800px] overflow-hidden flex items-center justify-center">
-        <p className="text-(--grey-400) text-[16px]">
-          No testimonials available
-        </p>
+        <EmptyState
+          message="No testimonials available"
+          className="text-(--grey-400)"
+        />
       </div>
     );
   }
@@ -28,10 +32,7 @@ function TestimonialsColumn({ testimonials = [], direction = "up" }) {
       onMouseLeave={() => setIsPaused(false)}
     >
       <div
-        className={`
-          flex flex-col gap-10
-          ${direction === "up" ? "animate-scroll-up" : "animate-scroll-down"}
-        `}
+        className={`flex flex-col gap-10 ${animationClass}`}
         style={{
           animationPlayState: isPaused ? "paused" : "running",
         }}

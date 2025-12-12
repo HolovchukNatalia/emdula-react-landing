@@ -1,9 +1,11 @@
 import FeatureRow from "./FeatureRow";
+import EmptyState from "../../ui/EmptyState.jsx";
 import { features } from "../../data/features";
+import { filterValidItems, validators } from "../../utils/dataUtils";
 
 function HowItWorks() {
-  const hasFeatures =
-    features && Array.isArray(features) && features.length > 0;
+  const validFeatures = filterValidItems(features, validators.feature);
+  const hasFeatures = validFeatures.length > 0;
 
   return (
     <section className="w-full bg-(--secondary-1000) py-16">
@@ -14,32 +16,21 @@ function HowItWorks() {
 
         {hasFeatures ? (
           <div className="flex flex-col gap-12">
-            {features.map((feature, index) => {
-              if (!feature || !feature.title || !feature.description) {
-                console.warn(
-                  `Invalid feature data at index ${index}:`,
-                  feature
-                );
-                return null;
-              }
-
-              return (
-                <FeatureRow
-                  key={feature.title || index}
-                  title={feature.title}
-                  description={feature.description}
-                  items={feature.items || []}
-                  imagePosition={feature.imagePosition || "left"}
-                />
-              );
-            })}
+            {validFeatures.map((feature, index) => (
+              <FeatureRow
+                key={feature.title || index}
+                title={feature.title}
+                description={feature.description}
+                items={feature.items || []}
+                imagePosition={feature.imagePosition || "left"}
+              />
+            ))}
           </div>
         ) : (
-          <div className="py-12 text-center text-(--white-1000)">
-            <p className="text-[18px]">
-              Features information is currently unavailable.
-            </p>
-          </div>
+          <EmptyState
+            message="Features information is currently unavailable"
+            className="text-(--white-1000)"
+          />
         )}
       </div>
     </section>

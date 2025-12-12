@@ -1,9 +1,11 @@
 import TrustCard from "./TrustCard";
+import EmptyState from "../../ui/EmptyState.jsx";
 import { whyTrustItems } from "../../data/whyTrust";
+import { filterValidItems, validators } from "../../utils/dataUtils";
 
 function WhyTrust() {
-  const hasItems =
-    whyTrustItems && Array.isArray(whyTrustItems) && whyTrustItems.length > 0;
+  const validItems = filterValidItems(whyTrustItems, validators.trustItem);
+  const hasItems = validItems.length > 0;
 
   return (
     <section id="security" className="w-full bg-(--light-background) py-16">
@@ -14,28 +16,20 @@ function WhyTrust() {
 
         {hasItems ? (
           <div className="grid grid-cols-3 gap-6">
-            {whyTrustItems.map((item, index) => {
-              if (!item || !item.title || !item.text) {
-                console.warn(`Invalid whyTrustItem at index ${index}:`, item);
-                return null;
-              }
-
-              return (
-                <TrustCard
-                  key={item.title || index}
-                  icon={item.icon}
-                  title={item.title}
-                  text={item.text}
-                />
-              );
-            })}
+            {validItems.map((item, index) => (
+              <TrustCard
+                key={item.title || index}
+                icon={item.icon}
+                title={item.title}
+                text={item.text}
+              />
+            ))}
           </div>
         ) : (
-          <div className="py-12 text-center text-[var(--secondary-1000)]">
-            <p className="text-[18px]">
-              Trust information is currently unavailable.
-            </p>
-          </div>
+          <EmptyState
+            message="Trust information is currently unavailable"
+            className="text-[var(--secondary-1000)]"
+          />
         )}
       </div>
     </section>

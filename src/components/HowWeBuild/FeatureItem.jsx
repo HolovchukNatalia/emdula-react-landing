@@ -1,6 +1,7 @@
 function FeatureItem({ number, title, text }) {
-  if (!number || !title || !text) {
-    console.error("FeatureItem: number, title and text are required");
+  const isValid = number && title && text;
+
+  if (!isValid) {
     return null;
   }
 

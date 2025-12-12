@@ -1,13 +1,16 @@
 import FeatureItem from "./FeatureItem";
+import EmptyState from "../../ui/EmptyState.jsx";
 import Mascot from "../../assets/images/mascot.png";
 import Button from "../../ui/Button/Button";
 import { howWeBuildItems } from "../../data/howWeBuild";
+import { filterValidItems, validators } from "../../utils/dataUtils";
 
 function HowWeBuild() {
-  const hasItems =
-    howWeBuildItems &&
-    Array.isArray(howWeBuildItems) &&
-    howWeBuildItems.length > 0;
+  const validItems = filterValidItems(
+    howWeBuildItems,
+    validators.howWeBuildItem
+  );
+  const hasItems = validItems.length > 0;
 
   return (
     <section
@@ -28,28 +31,20 @@ function HowWeBuild() {
           <div className="bg-(--green-carts) backdrop-blur-sm rounded-[50px] px-8 py-16 w-[738px] h-[878px]">
             {hasItems ? (
               <div className="grid grid-cols-2 gap-8">
-                {howWeBuildItems.map((item) => {
-                  if (!item || !item.number || !item.title || !item.text) {
-                    console.warn("Invalid howWeBuildItem:", item);
-                    return null;
-                  }
-
-                  return (
-                    <FeatureItem
-                      key={item.number}
-                      number={item.number}
-                      title={item.title}
-                      text={item.text}
-                    />
-                  );
-                })}
+                {validItems.map((item) => (
+                  <FeatureItem
+                    key={item.number}
+                    number={item.number}
+                    title={item.title}
+                    text={item.text}
+                  />
+                ))}
               </div>
             ) : (
-              <div className="flex items-center justify-center h-full">
-                <p className="text-center text-(--white-1000) text-[18px]">
-                  Content is currently unavailable.
-                </p>
-              </div>
+              <EmptyState
+                message="Content is currently unavailable"
+                className="text-(--white-1000) h-full flex items-center justify-center"
+              />
             )}
           </div>
 

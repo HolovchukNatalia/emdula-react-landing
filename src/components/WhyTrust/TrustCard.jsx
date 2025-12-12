@@ -1,25 +1,25 @@
+import IconFallback from "../../ui/IconFallback";
+
 function TrustCard({ icon, title, text }) {
-  if (!title || !text) {
-    console.error("TrustCard: title and text are required");
+  const isValid = title && text;
+
+  if (!isValid) {
     return null;
   }
 
   return (
-    <div className="bg-(--white-1000) rounded-lg px-[25px] py-[47px] flex flex-col ">
+    <div className="bg-(--white-1000) rounded-lg px-[25px] py-[47px] flex flex-col">
       {icon && (
         <div className="w-16 h-16 text-[var(--secondary-1000)] pb-5">
-          <img
+          <IconFallback
             src={icon}
             alt={`${title} icon`}
-            onError={(e) => {
-              console.error(`Failed to load icon for: ${title}`);
-              e.target.style.display = "none";
-            }}
+            className="w-full h-full"
           />
         </div>
       )}
 
-      <h3 className=" pb-3 text-[19px] leading-[1.38] font-medium text-[var(--secondary-1000)]">
+      <h3 className="pb-3 text-[19px] leading-[1.38] font-medium text-[var(--secondary-1000)]">
         {title}
       </h3>
 
