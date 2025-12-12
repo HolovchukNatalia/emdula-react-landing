@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --primery-400: #17624d;
+  --primery-300: #138356;
+  --primary-200main: #0aae6c;
+  --primery-100: #0ad282;
+  --primery-50: #29ed9e;
+  --secondary-1000: #0c111f;
+  --secondary-750: rgba(12, 17, 31, 0.75);
+  --secondary-500: rgba(12, 17, 31, 0.5);
+  --secondary-250: rgba(12, 17, 31, 0.25);
+  --white-1000: #f3f0f0;
+  --white-750: #f3f0f0bf;
+  --white-500: #f3f0f080;
+  --white-250: #f3f0f040;
+  --grey-100: #d1d2d5;
+  --grey-200: #9d9ea4;
+  --grey-300: #6c6e7d;
+  --grey-400: #494c61;
+  --grey-500: #3a3d52;
+  --light-background: #d7dce1;
+  --green-small-carts: #b6ffca;
+  --green-carts: hsla(168, 90%, 51%, 0.2);
+  --header: #00000040;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@keyframes scroll-up {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+@keyframes scroll-down {
+  from {
+    transform: translateY(-50%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.animate-scroll-up {
+  animation: scroll-up 20s linear infinite;
+}
+
+.animate-scroll-down {
+  animation: scroll-down 20s linear infinite;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 20s linear infinite;
+}
