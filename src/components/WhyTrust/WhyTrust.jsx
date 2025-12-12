@@ -8,7 +8,7 @@ function WhyTrust() {
   return (
     <section id="security" className="w-full bg-(--light-background) py-16">
       <div className="max-w-[1476px] mx-auto px-[90px]">
-        <h2 className="mb-10 text-center text-[48px] leading-[1.17] -tracking-[0.02em] font-medium text-(--secondary-1000)">
+        <h2 className="mb-10 text-center text-[48px] leading-[1.17] -tracking-[0.02em] font-medium text-[var(--secondary-1000)]">
           Why teams trust Emdula
         </h2>
 
@@ -31,7 +31,7 @@ function WhyTrust() {
             })}
           </div>
         ) : (
-          <div className="py-12 text-center text-(--secondary-1000)">
+          <div className="py-12 text-center text-[var(--secondary-1000)]">
             <p className="text-[18px]">
               Trust information is currently unavailable.
             </p>

@@ -7,7 +7,7 @@ function Vision() {
   return (
     <section id="products" className="w-full bg-(--light-background) py-16">
       <div className="max-w-[1296px] mx-auto bg-[#F3F0F0] rounded-3xl px-10 py-10">
-        <h2 className="mb-[68px] text-center text-[48px] leading-[1.2] font-semibold text-(--secondary-1000)">
+        <h2 className="mb-[68px] text-center text-[48px] leading-[1.2] font-semibold text-[var(--secondary-1000)]">
           Our vision and what we build
         </h2>
 
@@ -18,7 +18,7 @@ function Vision() {
             ))}
           </div>
         ) : (
-          <p className="py-12 text-center text-[18px] text-(--secondary-1000)">
+          <p className="py-12 text-center text-[18px] text-[var(--secondary-1000)]">
             Vision information is currently unavailable.
           </p>
         )}

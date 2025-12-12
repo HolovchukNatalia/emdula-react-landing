@@ -20,7 +20,7 @@ function VisionCard({ title, text, icon }) {
         )}
       </div>
 
-      <h3 className="text-[20px] leading-[1.4] font-semibold text-(--secondary-1000)">
+      <h3 className="text-[20px] leading-[1.4] font-semibold text-[var(--secondary-1000)]">
         {title}
       </h3>
 

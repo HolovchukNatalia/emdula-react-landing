@@ -9,7 +9,7 @@ function Testimonials() {
     return (
       <section className="w-full bg-(--light-background) py-16">
         <div className="max-w-[1476px] mx-auto px-[90px] text-center">
-          <p className="text-[18px] text-(--secondary-1000)">
+          <p className="text-[18px] text-[var(--secondary-1000)]">
             Testimonials are currently unavailable.
           </p>
         </div>
